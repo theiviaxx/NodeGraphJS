@@ -670,51 +670,6 @@ NodeGraph.Export = new Class({
 });
 
 
-NodeGraph.lib = {
-    pointInRect: function(pt, x, y, w, h) {
-        return (pt.x > x && pt.y > y && pt.x < x + w && pt.y < y + h);
-    },
-    getLengthOfNormal: function(a, b) {
-        var c, vNormal;
-
-        c.x = b.x * (a.dot(b) / b.dot(b));
-        c.y = b.y * (a.dot(b) / b.dot(b));
-
-        vNormal = a.subtract(c);
-
-        return NodeGraph.lib.Vector.mag(vNormal);
-    },
-    hitTestLine: function(pt0, pt1, ptMouse, nWidth) {
-        var PtM, tt0, tt1, dist, nHalfWidth;
-
-        nHalfWidth = (nWidth / 2 < 1) ? 1 : nWidth / 2;
-
-        tt0 = Line.create([pt0.x, pt0.y], [pt1.x, pt1.y]);
-        tt1 = Line.create([pt0.x, pt0.y], [ptMouse.x, ptMouse.y]);
-
-        dist = NodeGraph.lib.getLengthOfNormal(tt0, tt1);
-
-        return (dist >= -nHalfWidth && dist <= nHalfWidth);
-    },
-    Vector: {
-        mag: function(v) {
-            var dMag;
-            if (!v) {
-                dMag = 0.0;
-            }
-            else {
-                dMag = Math.sqrt(NodeGraph.lib.Vector.square(v));
-            }
-
-            return dMag;
-        },
-        square: function(v) {
-            return v.dot(v) + v.dot(v);
-        }
-    }
-}
-
-
 NodeGraph.Selection = new Class({
     initialize: function() {
         this.selected = null;
