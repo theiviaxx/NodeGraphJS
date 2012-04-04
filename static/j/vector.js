@@ -1,4 +1,23 @@
 /*
+---
+description: NodeGraph class.
+
+license: MIT-style
+
+authors:
+- Brett Dixon
+
+requires:
+- core/1.3.1: *
+- more/1.3.2: Color
+- easel.js
+
+provides: [NodeGraph]
+
+...
+*/
+
+/*
  * Copyright (c) 2009-2010 Takashi Kitao
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

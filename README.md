@@ -50,3 +50,11 @@ Once you have the nodes defined, call .addNode() on the NodeGraph instance with 
 This should insert a node and allow you to drag it around and add links to other nodes.
 
 Calling .save() on the NodeGraph instance will return a JSON string of the nodes in their current state.
+
+TODO
+----
+* Add better curve hit testing using maths
+* Add Thumbnails to nodes
+* Toggle display state to show/hide ins/outs on nodes
+* Add a way to expand a nodes outs on demand.  This would prevent some graphs from loading too much at once
+* Add the ability to add ins and outs on nodes after creation
