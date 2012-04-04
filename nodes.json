@@ -1,0 +1,88 @@
+[
+    {
+        "type": "Math.Multiply",
+        "properties": {
+            "x": 260,
+            "y": 100,
+            "id": 0
+        },
+        "ins": {
+            "A": {
+                "type": "Number"
+            },
+            "B": {
+                "type": "Number"
+            }
+        },
+        "outs": {
+            "out": {
+                "type": "Number"
+            }
+        }
+    },
+    {
+        "properties": {
+            "x": 550,
+            "y": 255,
+            "color": "#829f72",
+            "name": "This is a really long node name",
+            "id": 1
+        },
+        "ins": {
+            "mult": {
+                "type": "Number"
+            }
+        },
+        "outs": {}
+    },
+    {
+        "properties": {
+            "x": 10,
+            "y": 10,
+            "color": "#829f72",
+            "name": "source",
+            "id": 2
+        },
+        "ins": {},
+        "outs": {
+            "initialVal": {
+                "type": "Number",
+                "value": 5,
+                "links": ["0.A"]
+            }
+        }
+    },
+    {
+        "properties": {
+            "x": 10,
+            "y": 100,
+            "color": "#829f72",
+            "name": "source2",
+            "id": 3
+        },
+        "ins": {},
+        "outs": {
+            "initialVal": {
+                "type": "Number",
+                "value": 10,
+                "links": ["0.B"]
+            }
+        }
+    },
+    {
+        "properties": {
+            "x": 100,
+            "y": 300,
+            "color": "#829f72",
+            "name": "No Links",
+            "id": 4
+        },
+        "ins": {},
+        "outs": {
+            "initialVal": {
+                "type": "Number",
+                "value": 10
+            }
+        }
+    }
+]
