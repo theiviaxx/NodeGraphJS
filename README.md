@@ -8,6 +8,8 @@ The NodeGraph will display a NodeGraph control using HTML5 canvas.  Node objects
 
 ![Screenshot](http://www.brettdixon.com/static/i/NodeGraph_ss_01.png)
 
+[Demo](http://www.brettdixon.com/demos/nodeGraph.html)
+
 How to use
 ----------
 
