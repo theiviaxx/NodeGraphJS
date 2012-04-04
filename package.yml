@@ -3,5 +3,5 @@ author: theiviaxx
 category: Interface
 tags: [canvas, graph, nodegraph]
 #docs: http://url.to.docs
-#demo: http://url.to.demo
-current: 0.5
+demo: http://www.brettdixon.com/demos/nodeGraph.html
+current: 0.6

@@ -35,5 +35,11 @@ NodeGraph.Types = {
     },
     'Object': {
         'icon': '/static/i/Object.png'
+    },
+    'Date': {
+        'icon': '/static/i/Date.png',
+        serialize: function(val) {
+            return val.toISOString();
+        }
     }
 }

@@ -26,7 +26,8 @@ NodeGraph.NodeGraph = new Class({
         width: 800,
         height: 800,
         onLoad: function(){},
-        onSave: function(){}
+        onSave: function(){},
+        onLink: function(){}
     },
     initialize: function(el, options) {
         this.setOptions(options);
@@ -41,6 +42,8 @@ NodeGraph.NodeGraph = new Class({
         this.selection = new NodeGraph.Selection();
         this.currentNode = null;
         this.currentDock = null;
+        this.width = this.options.width;
+        this.height = this.options.height;
 
         this.container = new Container();
         
@@ -84,12 +87,14 @@ NodeGraph.NodeGraph = new Class({
             key = key[item];
         });
 
-        return key;
+        return (key === NodeGraph.NodeList) ? false : key;
     },
     addNode: function(n, options) {
         options = options || {};
         options.id = options.id || this.nodes.length + 1;
-        var node = new NodeGraph.Node(this, this.getNodeFromType(n), options);
+        var nodeDef = (typeof n === 'string') ? this.getNodeFromType(n) : n;
+        var node = new NodeGraph.Node(this, nodeDef, options);
+        node.type = (typeof n === 'string') ? n : undefined;
         this.nodes.push(node);
         node.build();
 
@@ -111,6 +116,11 @@ NodeGraph.NodeGraph = new Class({
             values: [],
             message: ""
         };
+        this.nodes.each(function(node) {
+            Object.each(node.ins, function(item) {
+                item.value = undefined;
+            })
+        });
         this.nodes.each(function(node) {
             var res = node._run();
             msg.isError = !res;
@@ -266,8 +276,8 @@ NodeGraph.Node = new Class({
                 evt.onMouseMove = function(ev) {
                     target.x = ev.stageX+offset.x;
                     target.y = ev.stageY+offset.y;
-                    self.properties.x = evt.stageX;
-                    self.properties.y = evt.stageY;
+                    self.properties.x = target.x;
+                    self.properties.y = target.y;
                     self.nodeGraph.nodes.each(function(node) {
                         node.drawWires();
                     });
@@ -522,7 +532,10 @@ NodeGraph.Export = new Class({
     addTarget: function(target) {
         if (!this.targets.contains(target)) {
             this.targets.push(target);
-            this.links.push(target.node.properties.id +'.' + target.label);
+            var sig = target.node.properties.id +'.' + target.label;
+            if (!this.links.contains(sig)) {
+                this.links.push(sig);
+            }
             var noodle = new Shape();
             noodle.onMouseOver = function() {
                 this.highlight = true;
@@ -538,6 +551,7 @@ NodeGraph.Export = new Class({
             }.bind(this);
             this.noodles.push(noodle);
             target.link = true;
+            this.node.nodeGraph.fireEvent('onLink', [this, target]);
         }
     },
     removeTarget: function(target) {
@@ -547,6 +561,7 @@ NodeGraph.Export = new Class({
             this.links.splice(idx, 1);
             this.noodles.splice(idx, 1)[0].graphics.clear();
             target.link = false;
+            this.node.nodeGraph.fireEvent('onLink');
         }
     },
     move: function(parentEvent, e) {
@@ -560,7 +575,7 @@ NodeGraph.Export = new Class({
             w: hitPad * 2,
             h: hitPad * 2
         }
-        if (currentDock) {
+        if (typeof currentDock !== 'undefined') {
             parentEvent.onMouseUp = function() {
                 if (this.typeCheck(currentDock, this)) {
                     this.addTarget(currentDock);
@@ -590,8 +605,10 @@ NodeGraph.Export = new Class({
                 this.node.nodeGraph.update = true;
             }.bind(this);
         }
-        if (currentNode && currentNode !== this.node) {
-            pt.x = currentNode.nodeGraph.stage.localToGlobal(currentNode.properties.x, currentNode.properties.y).x;
+        if (typeof currentNode !== 'undefined') {
+            if (currentNode !== this.node) {
+                pt.x = currentNode.nodeGraph.stage.localToGlobal(currentNode.properties.x, currentNode.properties.y).x;
+            }
         }
 
         this.node.nodeGraph.update = true;

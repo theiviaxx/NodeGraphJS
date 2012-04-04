@@ -6,7 +6,7 @@ NodeGraphJS is released under the MIT license. It is simple and easy to understa
 
 The NodeGraph will display a NodeGraph control using HTML5 canvas.  Node objects can be defined in the NodeGraph.NodeList file or the NodePgraph.NodeList object can be overwritten in some other fashion.  Node Types are defined in NodeGraph.Types.  This is a very early version and has most of the feature, but it needs a good polish pass before 1.0.
 
-![Screenshot](https://github.com/theiviaxx/NodeGraphJS/raw/master/static/i/screenshot_01.png)
+![Screenshot](http://www.brettdixon.com/static/i/NodeGraph_ss_01.png)
 
 How to use
 ----------
@@ -57,4 +57,3 @@ TODO
 * Add Thumbnails to nodes
 * Toggle display state to show/hide ins/outs on nodes
 * Add a way to expand a nodes outs on demand.  This would prevent some graphs from loading too much at once
-* Add the ability to add ins and outs on nodes after creation
